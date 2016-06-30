@@ -26,6 +26,11 @@
 
         controller: 'mofp-applications',
 
+        //Some custom ui cfg
+        'btnCreate|setUI': 'green-button',
+        'btnEdit|setUI': 'blue-button',
+        'btnDelete|setUI': 'red-button',
+
         grid: {
             xtype: 'grid',
             plugins: 'gridfilters',
