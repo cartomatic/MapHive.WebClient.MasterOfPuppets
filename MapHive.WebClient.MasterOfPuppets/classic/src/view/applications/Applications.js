@@ -31,10 +31,14 @@
         'btnEdit|setUI': 'blue-button',
         'btnDelete|setUI': 'red-button',
 
+        'gridHolder|setUI': 'green-panel',
+
         grid: {
             xtype: 'grid',
             plugins: 'gridfilters',
             bind: {store: '{gridstore}'},
+            ui: 'green-panel',
+            border: false,
             columns: [
                 {
                     bind: {text: '{localisation.name}'},

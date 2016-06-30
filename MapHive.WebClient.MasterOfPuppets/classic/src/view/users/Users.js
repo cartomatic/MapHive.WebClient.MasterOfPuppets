@@ -26,6 +26,7 @@
 
         grid: {
             xtype: 'grid',
+            border: false,
             plugins: 'gridfilters',
             bind: {store: '{gridstore}'},
             columns: [

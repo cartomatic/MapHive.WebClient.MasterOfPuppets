@@ -25,6 +25,7 @@
         items: [
             {
                 layout: 'form',
+                border: false,
                 items: [
                     {
                         xtype: 'textfield',
@@ -46,7 +47,7 @@
                     },
                     {
                         xtype: 'checkbox',
-                        reference: 'isAccountClosed',
+                        reference: 'isAccountVerified',
                         bind: {
                             fieldLabel: '{localisation.isAccountVerified}',
                             value: '{rec.isAccountVerified}'

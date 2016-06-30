@@ -61,8 +61,8 @@
          */
         rendererIsAccountClosed: function(value, metadata, record, rowIndex, colIndex, store, view){
             return value ?
-                this.getGridIconWithTooltipHtml('wg-icon-inactive', this.getTranslation('userInactiveTooltip')) :
-                this.getGridIconWithTooltipHtml('wg-icon-active', this.getTranslation('userActiveTooltip'));
+                this.getGridIconWithTooltipHtml('mh-icon-inactive', this.getTranslation('userInactiveTooltip')) :
+                this.getGridIconWithTooltipHtml('mh-icon-active', this.getTranslation('userActiveTooltip'));
         }
     });
 

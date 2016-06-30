@@ -1,17 +1,19 @@
+$nav-background-color: #43464B;
+
 @include treelist-ui(
   $ui: 'navigation',
   $padding: 0 10px,
 
   // Black-ish background color
-  $background-color: $panel-navigation-background-color,
-  $toolstrip-background-color: #32404e,
+  $background-color: $nav-background-color,//$panel-navigation-background-color,
+  $toolstrip-background-color: $nav-background-color,
 
   $tool-float-indicator-color: $panel-header-background-color,
   $tool-float-indicator-width: 5px,
 
   $tool-indicator-selected-color: $panel-header-background-color,
   $tool-indicator-selected-width: 5px,
-  $tool-selected-background-color: mix(white, $panel-navigation-background-color, 10%),
+  $tool-selected-background-color: mix(white, $nav-background-color, 10%),
   //$tool-selected-color: #fff,
   //$tool-selected-background-color: $panel-header-background-color,
 
@@ -21,8 +23,8 @@
   // Taller line height
   $item-line-height : $panel-navigation-item-line-height,
 
-  $row-over-background-color: mix(white, $panel-navigation-background-color, 5%),
-  $row-selected-background-color: mix(white, $panel-navigation-background-color, 10%),
+  $row-over-background-color: mix(white, $nav-background-color, 5%),
+  $row-selected-background-color: mix(white, $nav-background-color, 10%),
 
   // Off-white text
   $item-icon-color: $panel-navigation-item-text-color,

@@ -27,6 +27,7 @@
         items: [
             {
                 layout: 'form',
+                border: false,
                 items: [
                     {
                         xtype: 'textfield',
