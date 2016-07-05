@@ -65,7 +65,7 @@
                     filter: {
                         type: 'string'
                     },
-                    hidden:true
+                    renderer: 'translationsRenderer'
                 }
             ]
         },

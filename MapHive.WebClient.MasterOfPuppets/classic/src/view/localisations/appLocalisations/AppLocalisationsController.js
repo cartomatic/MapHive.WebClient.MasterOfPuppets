@@ -23,6 +23,34 @@
          */
         init: function() {
             this.callMeParent('init', arguments);
+        },
+
+        /**
+         * Custom renderer for the translations column
+         * @param value
+         * @param metadata
+         * @param rec
+         * @param rowIdx
+         * @param colIdx
+         * @param store
+         * @param view
+         */
+        translationsRenderer: function(value, metadata, rec, rowIdx, colIdx, store, view){
+            var ret = '',
+                langs = Ext.Object.getKeys(value),
+                l = 0, len = langs.length;
+
+            if(len > 0){
+                ret = [];
+                for(l; l < len; l++){
+                    ret.push(
+                        '<b>' + langs[l] + '</b>: ' + value[langs[l]]
+                    );
+                }
+                ret = ret.join('<br/>');
+            }
+
+            return ret;
         }
     });
 
