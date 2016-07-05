@@ -5,11 +5,13 @@
     'use strict';
     
     Ext.define('MasterOfPuppets.view.users.DataEditFormLocalisation', {
-        extend: 'MasterOfPuppets.view.users.UsersLocalisation',
+
         requires: [
-            'mh.localisation.Localisation'
+            'mh.localisation.Localisation',
+            'MasterOfPuppets.view.users.UsersLocalisation'
         ],
         statics: {
+            extends: 'MasterOfPuppets.view.users.UsersLocalisation',
             localisation: {}
         }
 

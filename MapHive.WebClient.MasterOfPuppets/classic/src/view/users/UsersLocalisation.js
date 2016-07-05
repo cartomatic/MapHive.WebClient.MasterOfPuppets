@@ -5,12 +5,13 @@
     'use strict';
 
     Ext.define('MasterOfPuppets.view.users.UsersLocalisation', {
-        extend: 'mh.module.data.DataViewBaseLocalisation',
 
         requires: [
-            'mh.localisation.Localisation'
+            'mh.localisation.Localisation',
+            'mh.module.data.DataViewBaseLocalisation'
         ],
         statics: {
+            extends: 'mh.module.data.DataViewBaseLocalisation',
             localisation: {
                 title: {
                     en: 'Users',
