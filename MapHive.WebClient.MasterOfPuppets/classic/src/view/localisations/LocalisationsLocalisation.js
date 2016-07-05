@@ -3,28 +3,25 @@
 (function(){
     //Make sure strict mode is on
     'use strict';
-    
-    Ext.define('MasterOfPuppets.view.main.MainLocalisation', {
+
+    Ext.define('MasterOfPuppets.view.localisations.LocalisationsLocalisation', {
+
         requires: [
             'mh.localisation.Localisation'
         ],
         statics: {
             localisation: {
-                dashboard: {
-                    en: 'Dashboard',
-                    pl: 'Kokpit???'
-                },
-                users: {
-                    en: 'Users',
-                    pl: 'Użytkownicy'
-                },
-                applications: {
-                    en: 'Apps',
-                    pl: 'Aplikacje'
-                },
-                localisations: {
+                title: {
                     en: 'Localisations',
                     pl: 'Tłumaczenia'
+                },
+                appLocalisations: {
+                    en: 'App localisations',
+                    pl: 'Tłumaczenia aplikacji'
+                },
+                emailTemplates: {
+                    en: 'Email templates',
+                    pl: 'Szablony emaili'
                 }
             }
         }

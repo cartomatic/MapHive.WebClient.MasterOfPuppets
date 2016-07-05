@@ -27,7 +27,8 @@
 
         'MasterOfPuppets.view.dashboard.Dashboard',
         'MasterOfPuppets.view.users.Users',
-        'MasterOfPuppets.view.applications.Applications'
+        'MasterOfPuppets.view.applications.Applications',
+        'MasterOfPuppets.view.localisations.Localisations'
     ],
 
     //Note: no routing is handled here at all, all boils dow to handling unmatched routes. The idea is to use piped routes - first part identifies a main card layout view, subsequent parts drive the views appropriately. This way it should be possible to handle all the main views here in a very generalised way. There should be no problems with the piped routes at indexes larger than 0 - if they are handled anywhere in the application, #unmatchedroute will not be fired for them! Also, the idea is that this highest level controller only handles high level views, and does not give a damn about how they act internally!
@@ -80,6 +81,13 @@
                         iconCls: 'x-fa fa-desktop',
                         view: 'MasterOfPuppets.view.applications.Applications',
                         hash: 'applications',
+                        leaf: true
+                    },
+                    {
+                        text: this.getTranslation('localisations'),
+                        iconCls: 'x-fa fa-comments',
+                        view: 'MasterOfPuppets.view.localisations.Localisations',
+                        hash: 'localisations',
                         leaf: true
                     }
                 ],

@@ -48,6 +48,7 @@
                 xtype: 'treelist',
                 reference: 'navTreeList',
                 ui: 'navigation',
+                margin: '0 5 0 0', //t r b l
                 width: 250,
                 expanderFirst: false,
                 expanderOnly: false,
