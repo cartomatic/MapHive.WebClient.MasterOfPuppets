@@ -14,7 +14,8 @@
         'Ext.layout.container.Fit',
         'MasterOfPuppets.view.localisations.LocalisationsController',
         'MasterOfPuppets.view.localisations.LocalisationsModel',
-        'MasterOfPuppets.view.localisations.appLocalisations.AppLocalisations'
+        'MasterOfPuppets.view.localisations.appLocalisations.AppLocalisations',
+        'MasterOfPuppets.view.localisations.langs.Langs'
     ],
 
     viewModel: {
@@ -32,6 +33,18 @@
         tabPosition: 'bottom',
 
         items: [
+            {
+                bind: {
+                    title: '{localisation.langs}'
+                },
+                iconCls: 'x-fa fa-comments-o',
+                layout: 'fit',
+                items: [
+                    {
+                        xtype: 'mofp-langs'
+                    }
+                ]
+            },
             {
                 bind: {
                     title: '{localisation.appLocalisations}'

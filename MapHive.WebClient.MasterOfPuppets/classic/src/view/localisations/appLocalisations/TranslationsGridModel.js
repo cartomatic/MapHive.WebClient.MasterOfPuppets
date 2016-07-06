@@ -15,13 +15,13 @@
         'Ext.data.ArrayStore',
         'Ext.data.Store',
         'Ext.data.proxy.Rest',
-        'mh.mixin.ApiMap',
-        'mh.data.model.Language'
+        'mh.data.model.Lang',
+        'mh.mixin.ApiMap'
     ],
 
     stores: {
             langsstore: {
-                model: 'mh.data.model.Language'
+                model: 'mh.data.model.Lang'
             }
         },
         data:{

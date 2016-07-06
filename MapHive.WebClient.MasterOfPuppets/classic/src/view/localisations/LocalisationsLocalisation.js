@@ -15,6 +15,10 @@
                     en: 'Localisations',
                     pl: 'Tłumaczenia'
                 },
+                langs: {
+                    en: 'Supported Langs',
+                    pl: 'Języki'
+                },
                 appLocalisations: {
                     en: 'App localisations',
                     pl: 'Tłumaczenia aplikacji'

@@ -4,19 +4,13 @@
     //Make sure strict mode is on
     'use strict';
 
-    Ext.define('MasterOfPuppets.view.localisations.LocalisationsController', {
-        extend: 'Ext.app.ViewController',
-
-        alias: 'controller.mofp-localisations',
+    Ext.define('MasterOfPuppets.view.localisations.langs.LangsController', {
+        extend: 'mh.module.data.DataViewBaseController',
+        alias: 'controller.mofp-langs',
 
         requires: [
-            'MasterOfPuppets.view.localisations.LocalisationsLocalisation'
+            'MasterOfPuppets.view.localisations.langs.LangsLocalisation'
         ],
-
-        
-        onSupportedLangs: function(){
-
-        },
 
         mixins: [
             'mh.mixin.Localisation',
@@ -29,7 +23,6 @@
          */
         init: function() {
             this.callMeParent('init', arguments);
-            this.injectLocalisationToViewModel();
         }
     });
 
