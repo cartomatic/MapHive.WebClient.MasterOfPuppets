@@ -4,17 +4,18 @@
     //Make sure strict mode is on
     'use strict';
 
-    Ext.define('MasterOfPuppets.view.localisations.appLocalisations.TranslationsGridController', {
+    Ext.define('MasterOfPuppets.view.localisations.emailTemplates.TranslationsGridController', {
         extend: 'mh.module.data.BindableStoreGridController',
-        alias: 'controller.mofp-translationsgrid',
+        alias: 'controller.mofp-email-templates-translationsgrid',
 
-        requires: [
-            'Ext.data.Store',
-            'mh.data.model.Translation',
-            'MasterOfPuppets.view.localisations.appLocalisations.TranslationsGridLocalisation'
-        ],
+    requires: [
+        'Ext.data.Store',
+        'MasterOfPuppets.view.localisations.emailTemplates.TranslationsGridLocalisation',
+        'mh.data.model.EmailTemplateTranslation',
+        'mh.data.model.Translation'
+    ],
 
-        mixins: [
+    mixins: [
             'mh.mixin.Localisation',
             'mh.mixin.GridUtils',
             'mh.mixin.PublishApi'
@@ -30,10 +31,10 @@
 
             //create a grid store and bind it to a grid
             this.gridStore = Ext.create('Ext.data.Store', {
-                model: 'mh.data.model.Translation',
+                model: 'mh.data.model.EmailTemplateTranslation',
                 data: []
             });
-            this.getView().setStore(this.gridStore);
+            this.lookupReference('translationsgrid').setStore(this.gridStore);
 
             this.publishApi(['enableEditMode']);
         },
@@ -63,13 +64,15 @@
             if(rec){
 
                 translations = rec.get('translations') || {};
+
                 tkeys = Ext.Object.getKeys(translations);
                 tk = 0; tklen = tkeys.length;
 
                 for(tk; tk < tklen; tk++){
                     data.push(Ext.create(this.gridStore.getModel(), {
                         langCode: tkeys[tk],
-                        translation: translations[tkeys[tk]]
+                        title: translations[tkeys[tk]].title,
+                        body: translations[tkeys[tk]].body
                     }));
                 }
             }
@@ -85,11 +88,12 @@
          */
         enableEditMode: function(){
 
-            this.activateActiveColsTooltips(this.getView());
+            this.activateActiveColsTooltips(this.lookupReference('translationsgrid'));
 
             this.lookupReference('translationsgrid_coldelete').show();
             this.lookupReference('translationsgrid_tbar').show();
 
+            this.lookupReference('htmleditor').setReadOnly(false);
 
             //watch the grid store for changes
             this.gridStore.on('datachanged', this.onDataChanged, this); //rec add, remove
@@ -113,7 +117,10 @@
         getTranslationsData: function(){
             var data = {};
             this.gridStore.each(function(r){
-                data[r.get('langCode')] = r.get('translation');
+                data[r.get('langCode')] = {
+                    title: r.get('title'),
+                    body: r.get('body')
+                }
             });
             return data;
         },

@@ -15,6 +15,7 @@
         'MasterOfPuppets.view.localisations.LocalisationsController',
         'MasterOfPuppets.view.localisations.LocalisationsModel',
         'MasterOfPuppets.view.localisations.appLocalisations.AppLocalisations',
+        'MasterOfPuppets.view.localisations.emailTemplates.EmailTemplates',
         'MasterOfPuppets.view.localisations.langs.Langs'
     ],
 
@@ -67,7 +68,9 @@
                 iconCls: 'x-fa fa-envelope',
                 layout: 'fit',
                 items: [
-
+                    {
+                        xtype: 'mofp-email-templates'
+                    }
                 ]
             }
         ]

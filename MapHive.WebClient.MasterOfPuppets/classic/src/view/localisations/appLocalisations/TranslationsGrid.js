@@ -17,7 +17,8 @@
         'Ext.grid.plugin.CellEditing',
         'Ext.toolbar.Toolbar',
         'MasterOfPuppets.view.localisations.appLocalisations.TranslationsGridController',
-        'MasterOfPuppets.view.localisations.appLocalisations.TranslationsGridModel'
+        'MasterOfPuppets.view.localisations.appLocalisations.TranslationsGridModel',
+        'MasterOfPuppets.view.localisations.emailTemplates.TranslationsGridController'
     ],
 
     plugins: {
