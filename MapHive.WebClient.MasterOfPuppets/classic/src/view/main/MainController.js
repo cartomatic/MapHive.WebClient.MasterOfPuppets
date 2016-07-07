@@ -14,21 +14,22 @@
         mixins: [
             'mh.communication.MsgBus',
             'mh.mixin.ModalMode',
-            'mh.mixin.Localisation'
+            'mh.mixin.Localisation',
+            'MasterOfPuppets.mixins.RouteUtils'
         ],
 
     requires: [
         'Ext.app.Application',
+        'Ext.app.route.Route',
         'Ext.data.TreeStore',
         'Ext.panel.Panel',
         'Ext.util.History',
         'MasterOfPuppets.model.NavigationTree',
-        'MasterOfPuppets.view.main.MainLocalisation',
-
-        'MasterOfPuppets.view.dashboard.Dashboard',
-        'MasterOfPuppets.view.users.Users',
         'MasterOfPuppets.view.applications.Applications',
-        'MasterOfPuppets.view.localisations.Localisations'
+        'MasterOfPuppets.view.dashboard.Dashboard',
+        'MasterOfPuppets.view.localisations.Localisations',
+        'MasterOfPuppets.view.main.MainLocalisation',
+        'MasterOfPuppets.view.users.Users'
     ],
 
     //Note: no routing is handled here at all, all boils dow to handling unmatched routes. The idea is to use piped routes - first part identifies a main card layout view, subsequent parts drive the views appropriately. This way it should be possible to handle all the main views here in a very generalised way. There should be no problems with the piped routes at indexes larger than 0 - if they are handled anywhere in the application, #unmatchedroute will not be fired for them! Also, the idea is that this highest level controller only handles high level views, and does not give a damn about how they act internally!
@@ -66,28 +67,39 @@
                         text: this.getTranslation('dashboard'),
                         iconCls: 'x-fa fa-dashboard',
                         view: 'MasterOfPuppets.view.dashboard.Dashboard',
-                        hash: 'dashboard',
+                        viewIdentifier: 'dashboard',
+                        initialRoute: 'dashboard',
+                        routes: this.prepareRoutes(['dashboard']),
                         leaf: true
                     },
                     {
                         text: this.getTranslation('users'),
                         iconCls: 'x-fa fa-user',
                         view: 'MasterOfPuppets.view.users.Users',
-                        hash: 'users',
+                        viewIdentifier: 'users',
+                        initialRoute: 'users',
+                        routes: this.prepareRoutes(['users']),
                         leaf: true
                     },
                     {
                         text: this.getTranslation('applications'),
                         iconCls: 'x-fa fa-desktop',
                         view: 'MasterOfPuppets.view.applications.Applications',
-                        hash: 'applications',
+                        viewIdentifier: 'applications',
+                        initialRoute: 'applications',
+                        routes: this.prepareRoutes(['applications']),
                         leaf: true
                     },
                     {
                         text: this.getTranslation('localisations'),
                         iconCls: 'x-fa fa-comments',
                         view: 'MasterOfPuppets.view.localisations.Localisations',
-                        hash: 'localisations',
+                        viewIdentifier: 'localisations',
+                        initialRoute: 'localisations',
+                        routes: this.prepareRoutes([
+                            'localisations',
+                            'localisations/:subroute'
+                        ]),
                         leaf: true
                     }
                 ],
@@ -144,8 +156,18 @@
 
             var navList = this.lookupReference('navTreeList'),
                 treeStore = navList.getStore(),
-                node = treeStore.findNode('hash', route),
-
+                node = treeStore.getRoot().findChildBy(
+                    function(n){
+                        var routes = n.get('routes') || [],
+                            r = 0, rlen = routes.length;
+                        for(r; r < rlen; r++){
+                            if(routes[r].recognizes(route)){
+                                return true;
+                            }
+                        }
+                    }
+                ),
+                viewIdentifier,
                 cardHolder, cardLayout, currentView, newView;
 
             //if a node has been found it means there is a matching menu item and a view for a route
@@ -153,21 +175,27 @@
 
                 routeHandled = true;
 
+                viewIdentifier = node.get('viewIdentifier');
+
+                node.set('currentRoute', route);
+
                 //highlight an item on a list
                 navList.setSelection(node);
+
+
 
                 //turn on the view
                 cardHolder = this.lookupReference('cardHolder');
                 cardLayout = cardHolder.getLayout();
                 currentView = cardLayout.getActiveItem();
-                newView = this.lookupReference(route);
+                newView = this.lookupReference(viewIdentifier);
 
                 //if the new view has not yet been created, do create it!
                 if(!newView){
 
                     if(node.get('view')){
                         newView = Ext.create(node.get('view'), {
-                            reference: route
+                            reference: viewIdentifier
                         });
                     }
                     else {
@@ -207,7 +235,7 @@
          * @param eOpts
          */
         onTreeListSelectionChange: function(treelist, selected, eOpts){
-            this.redirectTo(selected.get('hash'), false); //do not force hash update if the same
+            this.redirectTo(selected.get('currentRoute') || selected.get('initialRoute'), false); //do not force hash update if the same
         }
     });
 

@@ -34,6 +34,7 @@
 
         items: [
             {
+                reference: 'langs',
                 bind: {
                     title: '{localisation.langs}'
                 },
@@ -46,6 +47,7 @@
                 ]
             },
             {
+                reference: 'applocalisations',
                 bind: {
                     title: '{localisation.appLocalisations}'
                 },
@@ -58,6 +60,7 @@
                 ]
             },
             {
+                reference: 'emailtemplates',
                 bind: {
                     title: '{localisation.emailTemplates}'
                 },

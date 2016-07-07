@@ -11,10 +11,26 @@
         extend: 'Ext.data.TreeModel',
     
         fields: [
+
+            /**
+             * identifier of a view;
+             */
+            { name: 'viewIdentifier', type: 'string', allowNull: false },
+
             /**
              * hash to be used when navigating
              */
-            { name: 'hash', type: 'string', allowNull: false },
+            { name: 'routes', type: 'auto', defaultValue: []},
+
+            /**
+             * initial route to be used when clicking the nav menu btn for the first time
+             */
+            { name: 'initialRoute', type: 'string'},
+
+            /**
+             * Currently active route for a nav menu node
+             */
+            { name: 'currentRoute', type: 'string'},
 
             /**
              * view class to be instantiated when switching to a particular view
