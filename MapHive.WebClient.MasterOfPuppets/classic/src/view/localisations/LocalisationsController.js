@@ -59,9 +59,12 @@
         onViewKickIn: function(subView){
 
             if(subView){
+
                 var view = this.lookupReference(subView);
 
                 if(view){
+                    this.getView().setTitle(view.getTitle());
+                    this.getView().setIconCls(view.getIconCls());
                     this.getView().getLayout().setActiveItem(view);
                 }
                 else {
@@ -69,7 +72,12 @@
                     this.redirectToDefaultRoute();
                 }
             }
-            //else - no subview defined. this will display whatever is confogured initially
+            else {
+                //no subview defined. this will display whatever is configured initially
+                //just make sure to apply proper title
+                this.getView().setTitle(this.getTranslation('title'));
+                this.getView().setIconCls('x-fa fa-comments');
+            }
         }
     });
 
