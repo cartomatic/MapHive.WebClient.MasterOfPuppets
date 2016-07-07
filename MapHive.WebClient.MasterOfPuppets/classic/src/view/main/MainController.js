@@ -32,16 +32,20 @@
         'MasterOfPuppets.view.users.Users'
     ],
 
-    //Note: no routing is handled here at all, all boils dow to handling unmatched routes. The idea is to use piped routes - first part identifies a main card layout view, subsequent parts drive the views appropriately. This way it should be possible to handle all the main views here in a very generalised way. There should be no problems with the piped routes at indexes larger than 0 - if they are handled anywhere in the application, #unmatchedroute will not be fired for them! Also, the idea is that this highest level controller only handles high level views, and does not give a damn about how they act internally!
-        // routes: {
-        // },
+        //Note: routes are set up automatically on init, depending on the context
+
 
         /**
          * Called when the view is created
          */
         init: function () {
 
-            this.loadMenu();
+            //grab the menu data first and
+            var menudata = this.prepareMenuData();
+
+            this.prepareRoutes(menudata);
+
+            this.loadMenu(menudata);
 
             //it is required to init the History object prior to using it
             Ext.util.History.init();
@@ -56,53 +60,72 @@
         },
 
         /**
+         * Extracts routes off the menu data and registers them with the controller;
+         * @param menudata
+         */
+        prepareRoutes: function(menudata){
+            var m = 0, mlen = menudata.length,
+                routes,r, rlen,
+                outRoutes = {};
+
+            for (m; m < mlen; m++){
+                routes = menudata[m].routes;
+                r = 0; rlen = routes.length;
+                for(r; r < rlen; r++){
+                    outRoutes[routes[r]] = 'onMatchedRoute'
+                }
+            }
+            this.setRoutes(outRoutes);
+        },
+
+        prepareMenuData: function(){
+            //Note: this can be data driven and based on the serverside roles / permissions configuration
+            return [
+                {
+                    text: this.getTranslation('dashboard'),
+                    iconCls: 'x-fa fa-dashboard',
+                    view: 'MasterOfPuppets.view.dashboard.Dashboard',
+                    viewReference: 'dashboard',
+                    routes: [
+                        'dashboard'
+                    ],
+                    leaf: true
+                },
+                {
+                    text: this.getTranslation('users'),
+                    iconCls: 'x-fa fa-user',
+                    view: 'MasterOfPuppets.view.users.Users',
+                    viewReference: 'users',
+                    routes: ['users'],
+                    leaf: true
+                },
+                {
+                    text: this.getTranslation('applications'),
+                    iconCls: 'x-fa fa-desktop',
+                    view: 'MasterOfPuppets.view.applications.Applications',
+                    viewReference: 'applications',
+                    routes: ['applications'],
+                    leaf: true
+                },
+                {
+                    text: this.getTranslation('localisations'),
+                    iconCls: 'x-fa fa-comments',
+                    view: 'MasterOfPuppets.view.localisations.Localisations',
+                    viewReference: 'localisations',
+                    routes: [
+                        'localisations',
+                        'localisations/:subView'
+                    ],
+                    leaf: true
+                }
+            ];
+        },
+
+        /**
          * Loads the appropriate left hand side menu data
          */
-        loadMenu: function(){
+        loadMenu: function(data){
             var vm = this.getViewModel(),
-
-                //Note: this can be data driven and based on the serverside roles / permissions configuration
-                data = [
-                    {
-                        text: this.getTranslation('dashboard'),
-                        iconCls: 'x-fa fa-dashboard',
-                        view: 'MasterOfPuppets.view.dashboard.Dashboard',
-                        viewIdentifier: 'dashboard',
-                        initialRoute: 'dashboard',
-                        routes: this.prepareRoutes(['dashboard']),
-                        leaf: true
-                    },
-                    {
-                        text: this.getTranslation('users'),
-                        iconCls: 'x-fa fa-user',
-                        view: 'MasterOfPuppets.view.users.Users',
-                        viewIdentifier: 'users',
-                        initialRoute: 'users',
-                        routes: this.prepareRoutes(['users']),
-                        leaf: true
-                    },
-                    {
-                        text: this.getTranslation('applications'),
-                        iconCls: 'x-fa fa-desktop',
-                        view: 'MasterOfPuppets.view.applications.Applications',
-                        viewIdentifier: 'applications',
-                        initialRoute: 'applications',
-                        routes: this.prepareRoutes(['applications']),
-                        leaf: true
-                    },
-                    {
-                        text: this.getTranslation('localisations'),
-                        iconCls: 'x-fa fa-comments',
-                        view: 'MasterOfPuppets.view.localisations.Localisations',
-                        viewIdentifier: 'localisations',
-                        initialRoute: 'localisations',
-                        routes: this.prepareRoutes([
-                            'localisations',
-                            'localisations/:subroute'
-                        ]),
-                        leaf: true
-                    }
-                ],
                 treeStore = vm.get('treeMenu');
 
             //just rebind the root to load the data
@@ -128,74 +151,80 @@
                 return;
             }
 
-            //Note: we're treating all the routes as unmatched by default. If we manage to find a left hand side menu item for a route though, then a route is handled appropriately, otherwise it defaults to whatever it should default to.
+            this.redirectToDefaultRoute();
+        },
 
-            //try to handle the unmatched route
-            if(!this.tryHandleUnmatchedRoute(route)){
-                //okey dokey, this is an unmatched route indeed, so just silently redirect to a default route
-                Ext.defer(
-                    function () {
-                        //looks like this is not working as expected - not forcing the rpoute to default
-                        //this.redirectTo(Ext.app.Application.instance.getDefaultToken() || '', true);
-                        //so need to kick it harder
-                        window.location.hash = Ext.app.Application.instance.getDefaultToken() || '';
-                    },
-                    1,
-                    this
-                );
+        routesCheckupCache: null,
+
+        /**
+         * checks if a current rpute matches routes configured for a menu node
+         * @param {string} route
+         * @param {MasterOfPuppets.model.NavigationTree} n
+         * @returns {boolean}
+         */
+        checkIfRouteMatches: function(route, n){
+            this.routesCheckupCache = this.routesCheckupCache || {};
+
+            var viewRef = n.get('viewReference'),
+                routes,r,rlen;
+
+            if(!this.routesCheckupCache.hasOwnProperty(viewRef)){
+                this.routesCheckupCache[viewRef] = this.prepareRouteValidators(n.get('routes'));
             }
+            routes = this.routesCheckupCache[viewRef];
+            r = 0; rlen = routes.length;
+
+            for(r; r < rlen; r++){
+                if(routes[r].recognizes(route))
+                    return true;
+            }
+
+            return false;
         },
 
         /**
-         * Tries to handle an unmatched route; returns true if it manages to do so and false otherwise
-         * @returns {boolean}
+         * Matched route handler
          */
-        tryHandleUnmatchedRoute: function(route){
+        onMatchedRoute: function(){
 
-            var routeHandled = false;
+            //since got here, the route should basically be recognised and there should be a view for it
+
+            //Note: this app only handles single routes (no piped ones)
+            var route = this.getCurrentHash();
 
             var navList = this.lookupReference('navTreeList'),
                 treeStore = navList.getStore(),
+                me = this,
                 node = treeStore.getRoot().findChildBy(
                     function(n){
-                        var routes = n.get('routes') || [],
-                            r = 0, rlen = routes.length;
-                        for(r; r < rlen; r++){
-                            if(routes[r].recognizes(route)){
-                                return true;
-                            }
-                        }
+                        return me.checkIfRouteMatches(route, n);
                     }
                 ),
-                viewIdentifier,
+                viewRef,
                 cardHolder, cardLayout, currentView, newView;
 
             //if a node has been found it means there is a matching menu item and a view for a route
             if(node){
 
-                routeHandled = true;
-
-                viewIdentifier = node.get('viewIdentifier');
+                viewRef = node.get('viewReference');
 
                 node.set('currentRoute', route);
 
                 //highlight an item on a list
                 navList.setSelection(node);
 
-
-
                 //turn on the view
                 cardHolder = this.lookupReference('cardHolder');
                 cardLayout = cardHolder.getLayout();
                 currentView = cardLayout.getActiveItem();
-                newView = this.lookupReference(viewIdentifier);
+                newView = this.lookupReference(viewRef);
 
                 //if the new view has not yet been created, do create it!
                 if(!newView){
 
                     if(node.get('view')){
                         newView = Ext.create(node.get('view'), {
-                            reference: viewIdentifier
+                            reference: viewRef
                         });
                     }
                     else {
@@ -212,20 +241,10 @@
                     cardLayout.setActiveItem(newView);
                 }
             }
-
-            return routeHandled;
-        },
-
-        /**
-         * Extracts a view identifier off the hash. returns a first part of a piped route
-         */
-        getViewIdentifier: function(){
-            //get the token off the hash - it is going to be the very first piece of the hash - up top the first /
-            var hash = window.location.hash.substring(1),
-                slash =  hash.indexOf('|'),
-                token = hash.substring(0, slash > -1 ? slash : hash.length);
-
-            return token;
+            else {
+                //Note: this could pretty much happen during the dev. in production this should never be the case ;)
+                throw new Error('BOOOOM.... View ref for "' + route + '" route has not been found...');
+            }
         },
 
         /**
@@ -235,7 +254,7 @@
          * @param eOpts
          */
         onTreeListSelectionChange: function(treelist, selected, eOpts){
-            this.redirectTo(selected.get('currentRoute') || selected.get('initialRoute'), false); //do not force hash update if the same
+            this.redirectTo(selected.get('currentRoute') || selected.get('routes')[0], false); //do not force hash update if the same
         }
     });
 

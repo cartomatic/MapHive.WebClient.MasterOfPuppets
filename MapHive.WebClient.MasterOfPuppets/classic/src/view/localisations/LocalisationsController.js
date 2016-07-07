@@ -21,9 +21,12 @@
             'MasterOfPuppets.mixins.RouteUtils'
         ],
 
-        //Note: no route defs here, all handled in a customised way
-        // routes: {
-        // },
+        routes: {
+            'localisations': 'onViewKickIn',
+            'localisations/:subView': 'onViewKickIn'
+        },
+
+        mainRoute: 'localisations',
 
         /**
          * Called when the view is created
@@ -32,71 +35,41 @@
             this.callMeParent('init', arguments);
             this.injectLocalisationToViewModel();
 
-            //push
-
-            //this will handle the routes as expected.
-            this.listen({
-                controller: {
-                    '#': {
-                        unmatchedroute: this.onUnmatchedRoute
-                    }
-                }
-            });
-
-            //finally
             //this is a startup, so need to grab the route manually and feed it into the route handler for the view...
             this.getView().on('afterrender', function(){
-                this.onUnmatchedRoute(window.location.hash.substring(1));
-                //NOTE: if a default router is to be used, on init will just have to redirect to same route and enforce reprocessing of a route.
+                //this is init. and there is a chance the view has been created dynamically just after a route has been recognised
+                //make sure to force route execution again this one time
+                this.redirectTo(window.location.hash.substring(1), true);
             }, this);
 
+            //tabs should have their routes too; routes are based on their refs
             this.getView().on(
                 'tabchange',
                 function(panel, newCard, oldCard){
-                    window.location.hash = 'localisations/' + newCard.reference;
+                    window.location.hash = this.mainRoute + '/' + newCard.reference;
                 },
                 this
             );
         },
 
         /**
-         * handles unmatched routes
-         * @param route
+         * Dbl checks if a view that is requested can be handled and turns it on if so. Otherwise it redirects to the app's default view
+         * @param view
          */
-        onUnmatchedRoute: function(route){
+        onViewKickIn: function(subView){
 
-            //FIXME - ok, current way of dynamically deciding what to turn on / off and such is bad, bad bad. On one hand I do not want to repeat all the bloody routes handled in an app at the main view controller level and prefer having the router adjust dynamically to a situation, on the other hand this means messing around with some custom ways of route handling, while the default router would be more than happy to handle things properly.
+            if(subView){
+                var view = this.lookupReference(subView);
 
-
-            if(route.startsWith('localisations')){
-
-                if(route !== 'localisations'){
-                    //no view, nothing to handle
-                    route = route.replace('localisations/', '');
-
-                    var view = this.lookupReference(route);
-                    if(view){
-                        //alert(route);
-                        this.getView().getLayout().setActiveItem(view);
-                    }
-                    else {
-                        //redirect to dashboard.
-                        //okey dokey, this is an unmatched route indeed, so just silently redirect to a default route
-                        Ext.defer(
-                            function () {
-                                //looks like this is not working as expected - not forcing the rpoute to default
-                                //this.redirectTo(Ext.app.Application.instance.getDefaultToken() || '', true);
-                                //so need to kick it harder
-                                window.location.hash = Ext.app.Application.instance.getDefaultToken() || '';
-                            },
-                            1,
-                            this
-                        );
-                    }
+                if(view){
+                    this.getView().getLayout().setActiveItem(view);
                 }
-                //do nothing, just display, whetever is configured initially
+                else {
+                    //okey dokey, this is an unmatched route after all, so redirect to a default route
+                    this.redirectToDefaultRoute();
+                }
             }
-            //the other unmatched handled by the main controller
+            //else - no subview defined. this will display whatever is confogured initially
         }
     });
 

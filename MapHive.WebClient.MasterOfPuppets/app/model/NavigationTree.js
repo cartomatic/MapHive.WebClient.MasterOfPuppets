@@ -15,17 +15,12 @@
             /**
              * identifier of a view;
              */
-            { name: 'viewIdentifier', type: 'string', allowNull: false },
+            { name: 'viewReference', type: 'string', allowNull: false },
 
             /**
-             * hash to be used when navigating
+             * hashes assigned to the view. The very first hash is also a default hash
              */
             { name: 'routes', type: 'auto', defaultValue: []},
-
-            /**
-             * initial route to be used when clicking the nav menu btn for the first time
-             */
-            { name: 'initialRoute', type: 'string'},
 
             /**
              * Currently active route for a nav menu node
