@@ -13,7 +13,7 @@
         statics: {
             extends: 'mh.module.data.DataViewBaseLocalisation',
             localisation: {
-                title: {
+                gridTitle: {
                     en: 'Users',
                     pl: 'Użytkownicy'
                 },
