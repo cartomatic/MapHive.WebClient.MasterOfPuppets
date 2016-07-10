@@ -18,7 +18,7 @@
             'mh.mixin.Localisation',
             'mh.mixin.CallMeParent',
             'mh.mixin.GridUtils',
-            'MasterOfPuppets.mixins.RouteUtils'
+            'mh.mixins.RouteUtils'
         ],
 
         routes: {

@@ -15,7 +15,7 @@
             'mh.communication.MsgBus',
             'mh.mixin.ModalMode',
             'mh.mixin.Localisation',
-            'MasterOfPuppets.mixins.RouteUtils'
+            'mh.mixins.RouteUtils'
         ],
 
     requires: [
