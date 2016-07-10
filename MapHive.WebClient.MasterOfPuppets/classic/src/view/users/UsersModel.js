@@ -5,7 +5,7 @@
     'use strict';
 
     Ext.define('MasterOfPuppets.view.users.UsersModel', {
-        extend: 'mh.module.data.DataViewBaseModel',
+        extend: 'mh.module.dataView.DataViewBaseModel',
         alias: 'viewmodel.mofp-users',
 
         requires: [

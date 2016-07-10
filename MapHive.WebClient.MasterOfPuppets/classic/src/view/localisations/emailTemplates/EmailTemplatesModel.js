@@ -5,7 +5,7 @@
     'use strict';
 
     Ext.define('MasterOfPuppets.view.localisations.emailTemplates.EmailTemplatesModel', {
-        extend: 'mh.module.data.DataViewBaseModel',
+        extend: 'mh.module.dataView.DataViewBaseModel',
         alias: 'viewmodel.mofp-email-templates',
 
     requires: [

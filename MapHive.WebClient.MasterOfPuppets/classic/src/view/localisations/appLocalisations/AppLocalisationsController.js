@@ -5,7 +5,7 @@
     'use strict';
 
     Ext.define('MasterOfPuppets.view.localisations.appLocalisations.AppLocalisationsController', {
-        extend: 'mh.module.data.DataViewBaseController',
+        extend: 'mh.module.dataView.DataViewBaseController',
         alias: 'controller.mofp-app-localisations',
 
         requires: [

@@ -5,7 +5,7 @@
     'use strict';
 
     Ext.define('MasterOfPuppets.view.localisations.emailTemplates.TranslationsGridController', {
-        extend: 'mh.module.data.BindableStoreGridController',
+        extend: 'mh.module.dataView.BindableStoreGridController',
         alias: 'controller.mofp-email-templates-translationsgrid',
 
     requires: [

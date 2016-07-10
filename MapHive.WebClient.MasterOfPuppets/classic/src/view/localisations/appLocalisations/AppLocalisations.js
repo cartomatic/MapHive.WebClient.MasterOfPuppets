@@ -5,7 +5,7 @@
     'use strict';
 
     Ext.define('MasterOfPuppets.view.localisations.appLocalisations.AppLocalisations', {
-        extend: 'mh.module.data.DataViewBase',
+        extend: 'mh.module.dataView.DataViewBase',
 
     requires: [
         'Ext.grid.Panel',

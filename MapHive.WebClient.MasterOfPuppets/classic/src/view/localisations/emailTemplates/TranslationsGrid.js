@@ -58,7 +58,7 @@
                 xtype: 'grid',
                 iconCls: 'x-fa fa-comments-o',
                 bind: {
-                    title: '{localisation.translations}',
+                    title: '{localisation.translations}'
                 },
                 reference: 'translationsgrid',
                 plugins: {

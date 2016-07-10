@@ -8,10 +8,10 @@
 
         requires: [
             'mh.localisation.Localisation',
-            'mh.module.data.DataViewBaseLocalisation'
+            'mh.module.dataView.DataViewBaseLocalisation'
         ],
         statics: {
-            extends: 'mh.module.data.DataViewBaseLocalisation',
+            extends: 'mh.module.dataView.DataViewBaseLocalisation',
             localisation: {
                 gridTitle: {
                     en: 'Applications',

@@ -5,7 +5,7 @@
     'use strict';
 
     Ext.define('MasterOfPuppets.view.localisations.appLocalisations.TranslationsGrid', {
-        extend: 'mh.module.data.BindableStoreGrid',
+        extend: 'mh.module.dataView.BindableStoreGrid',
     
         xtype: 'mofp-translationsgrid',
 

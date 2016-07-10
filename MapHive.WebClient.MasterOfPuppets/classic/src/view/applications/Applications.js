@@ -6,7 +6,7 @@
 
     Ext.define('MasterOfPuppets.view.applications.Applications', {
 
-        extend: 'mh.module.data.DataViewBase',
+        extend: 'mh.module.dataView.DataViewBase',
 
     requires: [
         'Ext.grid.Panel',

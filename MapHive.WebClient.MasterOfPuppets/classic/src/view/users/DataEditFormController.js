@@ -5,7 +5,7 @@
     'use strict';
 
     Ext.define('MasterOfPuppets.view.users.DataEditFormController', {
-        extend: 'mh.module.data.GenericEditFormController',
+        extend: 'mh.module.dataView.GenericEditFormController',
         alias: 'controller.mofp-users-data-edit-form',
 
         requires: [

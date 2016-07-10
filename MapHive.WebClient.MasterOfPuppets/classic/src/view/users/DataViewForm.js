@@ -15,7 +15,7 @@
         'Ext.layout.container.Form',
         'Ext.layout.container.VBox',
         'mh.mixin.ApiMap',
-        'mh.module.data.LinksGrid'
+        'mh.module.dataView.LinksGrid'
     ],
 
     layout: {

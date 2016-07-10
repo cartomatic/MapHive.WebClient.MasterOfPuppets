@@ -5,7 +5,7 @@
     'use strict';
 
     Ext.define('MasterOfPuppets.view.applications.ApplicationsModel', {
-        extend: 'mh.module.data.DataViewBaseModel',
+        extend: 'mh.module.dataView.DataViewBaseModel',
         alias: 'viewmodel.mofp-applications',
 
         requires: [

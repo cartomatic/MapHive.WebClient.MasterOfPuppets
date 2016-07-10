@@ -5,7 +5,7 @@
     'use strict';
 
     Ext.define('MasterOfPuppets.view.localisations.langs.LangsModel', {
-        extend: 'mh.module.data.DataViewBaseModel',
+        extend: 'mh.module.dataView.DataViewBaseModel',
         alias: 'viewmodel.mofp-langs',
 
     requires: [

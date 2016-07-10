@@ -5,7 +5,7 @@
     'use strict';
 
     Ext.define('MasterOfPuppets.view.localisations.appLocalisations.TranslationsGridController', {
-        extend: 'mh.module.data.BindableStoreGridController',
+        extend: 'mh.module.dataView.BindableStoreGridController',
         alias: 'controller.mofp-translationsgrid',
 
         requires: [
