@@ -8,7 +8,7 @@ Ext.application({
 
     extend: 'MasterOfPuppets.Application',
 
-    requires: [],
+    requires: []
 
     //Do not create a view yet. Let the app decide how to handle it
     //mainView: 'MasterOfPuppets.view.main.Main'
