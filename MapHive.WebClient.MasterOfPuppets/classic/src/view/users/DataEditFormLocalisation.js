@@ -11,7 +11,7 @@
             'MasterOfPuppets.view.users.UsersLocalisation'
         ],
         statics: {
-            extends: 'MasterOfPuppets.view.users.UsersLocalisation',
+            inherits: 'MasterOfPuppets.view.users.UsersLocalisation',
             localisation: {}
         }
 
