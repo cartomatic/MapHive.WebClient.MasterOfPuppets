@@ -28,6 +28,8 @@
 
         onLaunchApp: function(){
 
+            Ext.ariaWarn = Ext.emptyFn;
+
             //first make sure the base does what's required!
 
             //note: need to drilldown 2 levels, as in fact, this will be an instance of the app defined and launched in the app.js! this is needed, as the core functionality is borrowed from the generic mh.Application

@@ -20,9 +20,9 @@
         'Ext.panel.Panel',
         'Ext.util.History',
         'MasterOfPuppets.view.main.MainLocalisation',
-        'MasterOfPuppets.view.applications.Applications',
+        'mh.module.dataView.applications.Applications',
         'MasterOfPuppets.view.dashboard.Dashboard',
-        'MasterOfPuppets.view.localisations.Localisations',
+        'mh.module.dataView.localisations.Localisations',
         'MasterOfPuppets.view.main.MainLocalisation',
         'MasterOfPuppets.view.users.Users'
     ],
@@ -59,7 +59,7 @@
                 {
                     text: this.getTranslation('applications'),
                     iconCls: 'x-fa fa-desktop',
-                    view: 'MasterOfPuppets.view.applications.Applications',
+                    view: 'mh.module.dataView.applications.Applications',
                     viewReference: 'applications',
                     routes: ['applications'],
                     leaf: true
@@ -67,7 +67,7 @@
                 {
                     text: this.getTranslation('localisations'),
                     iconCls: 'x-fa fa-comments',
-                    view: 'MasterOfPuppets.view.localisations.Localisations',
+                    view: 'mh.module.dataView.localisations.Localisations',
                     viewReference: 'localisations',
                     routes: [
                         'localisations',
