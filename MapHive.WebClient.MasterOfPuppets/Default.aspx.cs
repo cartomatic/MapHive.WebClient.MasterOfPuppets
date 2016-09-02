@@ -12,7 +12,7 @@ namespace MapHive.WebClient.MasterOfPuppets
     {
         protected async void Page_Load(object sender, EventArgs e)
         {
-            await Page.InjectMhCfg("mh,MasterOfPuppets");
+            await Page.InjectMhCfgAsync("mh,MasterOfPuppets");
         }
     }
 }
