@@ -20,7 +20,9 @@
             'mh.controller.Root',
 
             //use the customised Root
-            'MasterOfPuppets.controller.Auth'
+            'MasterOfPuppets.controller.Auth',
+
+            'mh.controller.Splash'
         ],
         
         //here goes a custom app launcher class. If not overridden, it will default to mh.AppLauncher
