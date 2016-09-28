@@ -9,7 +9,8 @@
         extend: 'mh.Application',
 
         requires: [
-            'MasterOfPuppets.AppLauncher'
+            'MasterOfPuppets.AppLauncher',
+            'MasterOfPuppets.ApplicationLocalisation'
         ],
 
         defaultToken : 'dashboard',
@@ -28,14 +29,27 @@
         //here goes a custom app launcher class. If not overridden, it will default to mh.AppLauncher
         appLauncher: 'MasterOfPuppets.AppLauncher',
 
-        onLaunchApp: function(){
+        /**
+         * internal app launch procedure
+         */
+        internalAppLaunch: function(){
 
+            //suppress aria warnings!
             Ext.ariaWarn = Ext.emptyFn;
 
-            //first make sure the base does what's required!
+            //tooltips
+            Ext.QuickTips.init();
 
-            //note: need to drilldown 2 levels, as in fact, this will be an instance of the app defined and launched in the app.js! this is needed, as the core functionality is borrowed from the generic mh.Application
-            this.superclass.superclass.onLaunchApp.call(this);
+
+            //TODO - make sure the app can start - permissions and such...
+
+
+            //first make sure the base does what's required! This will trigger the configured UI creation (AppLauncher)
+            //note: need to drilldown 2 levels, as in fact, this will be an instance of the app defined and launched in the app.js! this is needed, as the core functionality is borrowed from the generic wg.Application
+            //note: guess could also use the mixin that has been added a bit later - CallMeParent
+            this.superclass.superclass.internalAppLaunch.call(this);
+
+            //Now the post-launch setup
 
             //start the external route watcher - this will watch changes advised by a parent, and pass own changes to a parent
             this.fireGlobal('root:watchexternalroutes', {host: true});
@@ -50,7 +64,7 @@
                 250,
                 this
             );
-        }
+        },
 
     });
 }());
