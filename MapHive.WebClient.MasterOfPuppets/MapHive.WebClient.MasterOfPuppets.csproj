@@ -16,7 +16,7 @@
     <RootNamespace>MapHive.WebClient.MasterOfPuppets</RootNamespace>
     <AssemblyName>MapHive.WebClient.MasterOfPuppets</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
-    <UseIISExpress>true</UseIISExpress>
+    <UseIISExpress>false</UseIISExpress>
     <IISExpressSSLPort />
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
@@ -43,9 +43,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="MapHive.Server.Core">
-      <HintPath>..\..\MapHive.Server\Core\bin\Debug\MapHive.Server.Core.dll</HintPath>
-    </Reference>
     <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
       <Private>True</Private>
@@ -67,9 +64,14 @@
     <Reference Include="System.Configuration" />
     <Reference Include="System.Web.Services" />
     <Reference Include="System.EnterpriseServices" />
+    <Reference Include="WebClientConfigurationHelper, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\MapHive.Server\WebClientConfigurationHelper\bin\Debug\WebClientConfigurationHelper.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
+    <Content Include="ClientConfiguration.ashx" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -79,9 +81,14 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Default.aspx" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ClientConfiguration.ashx.cs">
+      <DependentUpon>ClientConfiguration.ashx</DependentUpon>
+    </Compile>
     <Compile Include="Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -106,7 +113,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>33855</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:33855/</IISUrl>
+          <IISUrl>https://masterofpuppets.maphive.local</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>
