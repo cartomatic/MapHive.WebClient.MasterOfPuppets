@@ -554,7 +554,7 @@
         "classic": {
             "toolkit": "classic",
             
-            "theme": "codaxy-azzurra-classic",
+            "theme": "theme-triton",
             
             "sass": {
                 // "save": "classic/sass/save.scss"
@@ -564,7 +564,7 @@
         "modern": {
             "toolkit": "modern",
             
-            "theme": "codaxy-azzurra-classic",
+            "theme": "theme-triton",
             
             "sass": {
                 // "save": "modern/sass/save.scss"
