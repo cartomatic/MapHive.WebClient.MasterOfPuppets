@@ -11,19 +11,20 @@
         requires: [
         ],
 
+        cls: 'mofp-locking-screen',
 
-        //this can be wrapped into a config property, but does not have to
-        'loginView|setUI': 'blue-panel',
-        'btnForgotPass|setUI': 'orange-button',
-        'btnForgotPass|setScale': 'medium',
-        'btnLogin|setUI': 'green-button',
-        'btnLogin|setScale': 'medium',
-
-        'forgotPassView|setUI': 'orange-panel',
-        'btnResetPass|setUI': 'orange-button',
-        'btnResetPass|setScale': 'medium',
-        'btnResetPassCancel|setUI': 'green-button',
-        'btnResetPassCancel|setScale': 'medium',
+        // //this can be wrapped into a config property, but does not have to
+        // 'loginView|setUI': 'blue-panel',
+        // 'btnForgotPass|setUI': 'orange-button',
+        // 'btnForgotPass|setScale': 'medium',
+        // 'btnLogin|setUI': 'green-button',
+        // 'btnLogin|setScale': 'medium',
+        //
+        // 'forgotPassView|setUI': 'orange-panel',
+        // 'btnResetPass|setUI': 'orange-button',
+        // 'btnResetPass|setScale': 'medium',
+        // 'btnResetPassCancel|setUI': 'green-button',
+        // 'btnResetPassCancel|setScale': 'medium',
 
         /**
          * Called when the view is created

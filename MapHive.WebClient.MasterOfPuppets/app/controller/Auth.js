@@ -23,6 +23,28 @@
         init: function(){
             //first make sure to init the base stuff!
             this.superclass.init.call(this);
+        },
+
+        /**
+         * Shows a logon UI.
+         */
+        showLogonUi: function(){
+            //Note: Authentication controller requires a UI module exposing a standardised API! see mh.module.auth.Auth for details
+
+            this.hideSplash();
+
+            //this.getAuthUiInstance().showLogonView();
+
+            //<debug>
+            if(true){
+                this.getAuthUiInstance().showLogonViewWithAutoLogon('dev@maphive.net', 'test');
+            }
+            else {
+                //</debug>
+                this.getAuthUiInstance().showLogonView();
+                //<debug>
+            }
+            //</debug>
         }
 
     });
