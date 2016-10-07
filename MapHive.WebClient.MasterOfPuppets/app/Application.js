@@ -52,7 +52,7 @@
             //Now the post-launch setup
 
             //start the external route watcher - this will watch changes advised by a parent, and pass own changes to a parent
-            this.fireGlobal('root:watchexternalroutes', {host: true});
+            this.fireGlobal('root::watchexternalroutes', {host: true});
 
 
             //finally force reroute to the specified route so the router kicks in and handles nav properly
