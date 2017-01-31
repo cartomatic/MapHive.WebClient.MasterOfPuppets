@@ -20,7 +20,7 @@
     
         controller: 'mofp-dashboard',
 
-        iconCls: 'x-154 i54-analitics',
+        iconCls: 'x-i54 i54-analitics',
 
         items: [
         ]
