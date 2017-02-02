@@ -20,7 +20,7 @@
             //use the default root
             'mh.controller.Root',
 
-            //use the customised Root
+            //use the customised Auth
             'MasterOfPuppets.controller.Auth',
 
             'mh.controller.Splash'
@@ -32,7 +32,7 @@
         /**
          * internal app launch procedure
          */
-        internalAppLaunch: function(){
+        internalAppLaunch: function(userCfg){
 
             //suppress aria warnings!
             Ext.ariaWarn = Ext.emptyFn;
