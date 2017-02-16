@@ -13,6 +13,10 @@
             'MasterOfPuppets.ApplicationLocalisation'
         ],
 
+        mixins: [
+            'mh.mixin.CallMeParent'
+        ],
+
         defaultToken : 'dashboard',
 
         //global shared controllers - they fire up automatically
@@ -23,6 +27,8 @@
             //use the customised Auth
             'MasterOfPuppets.controller.Auth',
 
+            'mh.controller.Organisation',
+
             'mh.controller.Splash'
         ],
         
@@ -31,8 +37,11 @@
 
         /**
          * internal app launch procedure
+         * @param cfg
+         * @param cfg.userConfig
+         * @param cfg.orgCtx
          */
-        internalAppLaunch: function(userCfg){
+        internalAppLaunch: function(cfg){
 
             //suppress aria warnings!
             Ext.ariaWarn = Ext.emptyFn;
@@ -45,9 +54,7 @@
 
 
             //first make sure the base does what's required! This will trigger the configured UI creation (AppLauncher)
-            //note: need to drilldown 2 levels, as in fact, this will be an instance of the app defined and launched in the app.js! this is needed, as the core functionality is borrowed from the generic wg.Application
-            //note: guess could also use the mixin that has been added a bit later - CallMeParent
-            this.superclass.superclass.internalAppLaunch.call(this);
+            this.callMeParent('internalAppLaunch', arguments);
 
             //Now the post-launch setup
 
