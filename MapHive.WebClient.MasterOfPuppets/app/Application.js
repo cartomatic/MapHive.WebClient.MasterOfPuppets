@@ -50,9 +50,6 @@
             Ext.QuickTips.init();
 
 
-            //TODO - make sure the app can start - permissions and such...
-
-
             //first make sure the base does what's required! This will trigger the configured UI creation (AppLauncher)
             this.callMeParent('internalAppLaunch', arguments);
 

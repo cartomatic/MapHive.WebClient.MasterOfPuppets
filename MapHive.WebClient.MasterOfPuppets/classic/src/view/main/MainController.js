@@ -8,7 +8,7 @@
      * This is a simplistic example of a hosted app CLASSIC view. it simply sets up some
      */
     Ext.define('MasterOfPuppets.view.main.MainController', {
-        extend: 'mh.module.mainView.SideNavViewportController',
+        extend: 'mh.module.sideNav.SideNavController',
         alias: 'controller.viewport',
 
         mixins: [

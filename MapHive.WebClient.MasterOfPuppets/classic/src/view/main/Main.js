@@ -8,7 +8,7 @@
      * App's viewport
      */
     Ext.define('MasterOfPuppets.view.main.Main', {
-        extend: 'mh.module.mainView.SideNavViewport',
+        extend: 'mh.module.sideNav.SideNav',
 
     requires: [
         'Ext.container.Container',
@@ -16,10 +16,16 @@
         'Ext.layout.container.HBox',
         'Ext.list.Tree',
         'Ext.plugin.Viewport',
-        'MasterOfPuppets.view.main.MainController'
+        'MasterOfPuppets.view.main.MainController',
+        'Ext.plugin.Viewport'
     ],
 
-        controller: 'viewport'
+        //make the component be a viewport
+        plugins: 'viewport',
+
+        controller: 'viewport',
+
+        useRouter: true
     });
 
 }());
