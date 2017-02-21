@@ -12,22 +12,6 @@
         statics: {
             inherits: 'mh.ApplicationLocalisation',
             localisation: {
-                dashboard: {
-                    en: 'Dashboard',
-                    pl: 'Kokpit???'
-                },
-                users: {
-                    en: 'Users',
-                    pl: 'Użytkownicy'
-                },
-                applications: {
-                    en: 'Apps',
-                    pl: 'Aplikacje'
-                },
-                localisations: {
-                    en: 'Localisations',
-                    pl: 'Tłumaczenia'
-                }
             }
         }
     }, function(){
